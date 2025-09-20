@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamScribble Board</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="board-body">
+
+    <header class="board-header">
+        <a href="/" class="header-logo">TeamScribble</a>
+        <div class="header-right">
+            <span id="room-name-display" class="room-name-display"></span>
+            <span id="user-nickname-display" class="user-nickname-display"></span>
+        </div>
+    </header>
+
+    <div class="board-layout">
+        <main class="canvas-area">
+            <canvas id="main-canvas"></canvas>
+            <div id="cursor-layer" class="cursor-layer"></div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Participants:</h3>
+                <div id="participants-list" class="participants-list"></div>
+            </div>
+
+            <div class="sidebar-section chat-section">
+                <h3>Chat:</h3>
+                <div id="chat-messages" class="chat-messages"></div>
+                <div class="chat-input-group">
+                    <input type="text" id="chat-input" placeholder="Type a message...">
+                    <button id="send-chat-btn">Send</button>
+                </div>
+            </div>
+            
+            <a href="/" class="leave-room-btn">Leave Room</a>
+        </aside>
+    </div>
+
+    <footer class="bottom-toolbar">
+        <div class="tool-group">
+            <button id="pencil-tool" class="tool-btn active" title="Pencil">
+                <svg viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+            </button>
+            <button id="eraser-tool" class="tool-btn" title="Eraser">
+                <svg viewBox="0 0 24 24"><path d="M20.42 4.58a2.1 2.1 0 0 0-2.98 0l-5.18 5.18-6.36 2.54.26 6.58 6.58.26 2.54-6.36 5.18-5.18a2.1 2.1 0 0 0 0-2.98zM16 12l4 4"></path></svg>
+            </button>
+             <button id="shape-square-tool" class="tool-btn" title="Rectangle">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>
+            </button>
+            <button id="shape-circle-tool" class="tool-btn" title="Circle">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg>
+            </button>
+            <button id="fill-tool" class="tool-btn" title="Fill Board">
+                 <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 18a8 8 0 0 1-8-8c0-2.07 1.09-3.9 2.75-4.94L11 11v6h2v-5c2.39-.77 4-2.85 4-5.06a8 8 0 0 1-8 8m-2.93-8.87L5.86 6.13c-.2-.2-.2-.51 0-.71s.51-.2.71 0l3.19 3.19c.2.2.2.51 0 .71s-.51.2-.71 0z"/></svg>
+            </button>
+        </div>
+
+        <div class="tool-divider"></div>
+
+        <div id="color-palette" class="color-palette"></div>
+
+        <div class="tool-divider"></div>
+
+        <div class="tool-group">
+             <input type="range" id="brush-size-slider" min="1" max="50" value="5" title="Brush Size">
+        </div>
+
+        <div class="tool-divider"></div>
+
+        <div class="tool-group">
+            <button id="undo-btn" class="tool-btn" title="Undo Last Stroke">
+                 <svg viewBox="0 0 24 24"><path d="M12.5 8C9.85 8 7.61 9.35 6.17 11.5L2 7V17h10l-3.32-3.32c1.29-1.37 3.01-2.18 4.82-2.18 3.31 0 6 2.69 6 6s-2.69 6-6 6"></path></svg>
+            </button>
+            <button id="clear-page-btn" class="tool-btn" title="Clear Current Page">
+                <svg viewBox="0 0 24 24"><path d="M14.74 9l-.34 6H9.6l-.34-6H14.74zM21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM3 6h18v12H3z"></path></svg>
+            </button>
+        </div>
+
+        <div class="tool-divider"></div>
+
+        <div id="page-review-container" class="page-review-container">
+            <h3>Pages:</h3>
+            <div id="page-previews" class="page-previews"></div>
+            <div class="page-review-controls">
+                <button id="add-page-btn" class="page-action-btn" title="Add New Page">
+                    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
